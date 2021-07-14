@@ -20,11 +20,11 @@ $ sbatch run.sh
 
 4. The code will generate several output files:
 
-*.top # Main topology file in gromacs format with FF included.
+  *.top # Main topology file in gromacs format with FF included.
 
-ffnonbonded.itp # The GROMACS force field file contains the non-bonding parameters
+  ffnonbonded.itp # The GROMACS force field file contains the non-bonding parameters
 
-topol.top # Default GROMACS topology
+  topol.top # Default GROMACS topology
 
-mol.gro # GROMACS input geometry file with updated atomic type match with the topology. The file has no initial box, be sure to use the 'gmx editconf' command to add the box before you use it for simulation. 
+  mol.gro # GROMACS input geometry file with updated atomic type match with the topology. The file has no initial box, be sure to use the 'gmx editconf' command to add the box before you use it for simulation. 
 
