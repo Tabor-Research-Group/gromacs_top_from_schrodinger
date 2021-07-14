@@ -1,12 +1,20 @@
 #!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
 
 import argparse
-from ase.io import read
 import numpy as np
+from ase.io import read
+
+
+# In[143]:
 
 
 def printGro(infile, outfile, atomSymbol):
     mol = read(infile)
+#     masses = mol.get_masses()
     coord = mol.get_positions()
     
     gout = open(outfile, 'w')
@@ -19,6 +27,28 @@ def printGro(infile, outfile, atomSymbol):
     gout.close()
     
     
+
+
+# In[ ]:
+
+
+def printGro2(infile, outfile, atomSymbol, cell):
+    mol = read(infile)
+#     masses = mol.get_masses()
+    coord = mol.get_positions()
+    
+    gout = open(outfile, 'w')
+    
+    print('Gro File', file=gout)
+    print(natoms, file=gout)
+    for i in range(len(coord)):
+        print("{0:>5d}{1:<5s}{2:>5s}{3:5d}{4:8.3f}{5:8.3f}{6:8.3f}".format              (1, 'MOL', atomSymbol[i], i+1, coord[i][0]/10, coord[i][1]/10, coord[i][2]/10), file=gout)
+    print("{0:>10.5f}{1:>10.5f}{2:>10.5f}".format(cell[0][0]/10, cell[1][1]/10, cell[2][2]/10), file=gout)
+    gout.close()
+
+
+# In[138]:
+
 
 def grep_atom_types(filename, atomNum, masses):
     with open(filename, 'r') as f:
@@ -52,6 +82,9 @@ def grep_atom_types(filename, atomNum, masses):
         
     return atomName, atomType, atomSymbol, charges, sigma, epsilon, atom_dict, nb_dict
             
+
+
+# In[6]:
 
 
 def parseFF(filename):
@@ -110,6 +143,9 @@ def parseFF(filename):
         
 
 
+# In[144]:
+
+
 def dihedral_conv(torsions):
     dihedrals = []
     for i in torsions:
@@ -117,11 +153,11 @@ def dihedral_conv(torsions):
         v2 = float(i[5])
         v3 = float(i[6])
         v4 = float(i[7])
-        c0 = (v2 + 0.5*(v1+v3))*4.184
-        c1 = 0.5*(-1*v1 + 3*v3)*4.184
-        c2 = (-1*v2 + 4*v4)*4.184
-        c3 = -2*v3*4.184
-        c4 = -4*v4*4.184
+        c0 = (v2 + 0.5*(v1+v3))*8.368
+        c1 = 0.5*(-1*v1 + 3*v3)*8.368
+        c2 = (-1*v2 + 4*v4)*8.368
+        c3 = -2*v3*8.368
+        c4 = -4*v4*8.368
         c5 = 0 
     
         new_tor = i[:4] + [c0, c1, c2, c3, c4, c5]
@@ -129,6 +165,8 @@ def dihedral_conv(torsions):
     
     return dihedrals
 
+
+# In[145]:
 
 
 def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angles, dihedrals, im_torsions, atom_dict):
@@ -155,14 +193,14 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print('[ bonds ]', file=fout)
     print(';   ai    aj  funct        c0        c1', file=fout)
     for i in range(len(bonds)):
-        print('{0:>6d}{1:>6d}{2:>7d}{3:>10.5f}{4:>10.1f}'.format              (atom_dict[bonds[i][0]], atom_dict[bonds[i][1]], 1, float(bonds[i][3])/10, float(bonds[i][2])*4.184*100), file=fout)
+        print('{0:>6d}{1:>6d}{2:>7d}{3:>10.5f}{4:>10.1f}'.format              (atom_dict[bonds[i][0]], atom_dict[bonds[i][1]], 1, float(bonds[i][3])/10, float(bonds[i][2])*4.184*200), file=fout)
         
     # Print Angles
     print('', file=fout)
     print('[ angles ]', file=fout)
     print(';   ai    aj    ak   funct    theta0       k0', file=fout)
     for i in range(len(angles)):
-        print('{0:>6d}{1:>6d}{2:>6d}{3:>8d}{4:>10.3f}{5:>10.1f}'.format              (atom_dict[angles[i][0]], atom_dict[angles[i][1]], atom_dict[angles[i][2]], 1, float(angles[i][4]), float(angles[i][3])*4.184), file=fout)
+        print('{0:>6d}{1:>6d}{2:>6d}{3:>8d}{4:>10.3f}{5:>10.1f}'.format              (atom_dict[angles[i][0]], atom_dict[angles[i][1]], atom_dict[angles[i][2]], 1, float(angles[i][4])*8.368, float(angles[i][3])*4.184), file=fout)
     
         
     # Print Dihedrals
@@ -179,11 +217,13 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print(";improper dihedrals", file=fout)
     print(";    ai   aj    ak    al funct    phi(deg)  k(kJ/mol)   multi", file=fout)
     for i in range(len(im_torsions)):
-        print("{0:>6d}{1:>6d}{2:>6d}{3:>6d}{4:>6d}{5:>12.1f}{6:>11.5f}{7:>8d}".format              (atom_dict[im_torsions[i][0]], atom_dict[im_torsions[i][1]], atom_dict[im_torsions[i][2]], atom_dict[im_torsions[i][3]],               1, 180, float(im_torsions[i][4])*4.184, 2), file=fout)
+        print("{0:>6d}{1:>6d}{2:>6d}{3:>6d}{4:>6d}{5:>12.1f}{6:>11.5f}{7:>8d}".format              (atom_dict[im_torsions[i][0]], atom_dict[im_torsions[i][1]], atom_dict[im_torsions[i][2]], atom_dict[im_torsions[i][3]],               1, 180, float(im_torsions[i][4])*8.368, 2), file=fout)
         
     
     fout.close()
 
+
+# In[146]:
 
 
 def printNB(nb_dict):
@@ -198,17 +238,19 @@ def printNB(nb_dict):
     fout.close()
 
 
+# In[147]:
 
-def printITP(top_output):
+
+def printITP():
     fout = open('topol.top', 'w')
-    print('; forcefield', file=fout)
+    print('; top', file=fout)
     print('', file=fout)
     print('[ defaults ]', file=fout)
     print('; nbfunc    comb-rule   gen-pairs   fudgeLJ   fudgeQQ', file=fout)
     print('       1            3         yes       0.5       0.5', file=fout)
     print('', file=fout)
     print('#include "ffnonbonded.itp"', file=fout)
-    print('#include', '"'+top_output+'"', file=fout)
+    print('#include "mol.top"', file=fout)
     print('', file=fout)
     print('[system]', file=fout)
     print('System', file=fout)
@@ -219,14 +261,16 @@ def printITP(top_output):
     print('', file=fout)
 
 
+# In[ ]:
+
 
 if __name__ == '__main__':
     # Parse Command-line Input
-    parser = argparse.ArgumentParser(description='Convert Schrodinger output forcefield file to GROMACS format and create input files for simulation')
+    parser = argparse.ArgumentParser(description='Generate random crystals from input(.log, .gjf or .xyz) file')
     parser.add_argument('-f', nargs=1, help='Input geometry file (xyz, gro)', required=True)
-    parser.add_argument('-l', nargs=1, help='Schrodinger file (input)', required=True)
-    parser.add_argument('-o', nargs=1, help='New gromacs gro file (output)', required=True)
-    parser.add_argument('-t', nargs=1, help='Topology file with FF (output)', required=True)
+    parser.add_argument('-l', nargs=1, help='Input log file', required=True)
+    parser.add_argument('-o', nargs=1, help='Output gromacs gro file', required=True)
+    parser.add_argument('-t', nargs=1, help='Topology file', required=True)
     args = parser.parse_args()
 
     if vars(args)['l'][0] != 'NULL' and vars(args)['f'][0] != 'NULL':
@@ -241,15 +285,18 @@ if __name__ == '__main__':
         masses = mol.get_masses()
         natoms = len(masses)
         atomNum = mol.get_atomic_numbers()
-        
         atomName, atomType, atomSymbol, charges, sigma, epsilon, atom_dict, nb_dict = grep_atom_types(log_input, atomNum, masses)
         dihedrals = dihedral_conv(torsions)
         
         printNB(nb_dict)
-        
-        printGro(geom_input, new_gro_output, atomSymbol)
+        printITP()
         printTOP(top_output, natoms, atomType, atomSymbol, charges, masses, bonds, angles, dihedrals, im_torsions, atom_dict)
-        printITP(top_output)
+            
+        if vars(args)['f'][0][-3:] == 'gro':
+            cell = mol.get_cell()
+            printGro2(geom_input, new_gro_output, atomSymbol, cell)
+        else:
+            printGro(geom_input, new_gro_output, atomSymbol)
         
-    else:
-        "You need to define the input gro/xyz file with '-f' and input log file" 
+
+
