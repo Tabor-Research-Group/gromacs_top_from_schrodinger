@@ -2,7 +2,7 @@
 
 ### Currently works on Terra
 
-### Keep in mind that the FF included here are extracted from general molecules. To obtain accurate simulation results, it is alway recommanded to parameterized the distinct dihedrals.  
+### Keep in mind that the FF included here are extracted from OPLS_2005. To obtain accurate simulation results, it is alway recommanded to parameterized the distinct dihedrals.  
 
 This code is used to convert Schrodinger force field output to GROMACS format and also generate other input files used to initiate GROMACS simulation.
 
