@@ -2,7 +2,7 @@ import argparse
 import numpy as np
 from ase.io import read
 
-
+#test
 
 def printGro(infile, outfile, atomSymbol):
     mol = read(infile)
