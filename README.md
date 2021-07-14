@@ -32,4 +32,4 @@ $ sbatch run.sh
 
   mol.gro # GROMACS input geometry file with updated atomic type match with the topology. If your input geometry is in .gro format, the output will keep the same box, otherwise, the output gro has no box, be sure to use the 'gmx editconf' command to add the box before you use it for simulation. 
 
-https://zenodo.org/badge/385991711.svg
+
