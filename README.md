@@ -26,5 +26,5 @@ $ sbatch run.sh
 
   topol.top # Default GROMACS topology
 
-  mol.gro # GROMACS input geometry file with updated atomic type match with the topology. The file is boxless, be sure to use the 'gmx editconf' command to add the box before you use it for simulation. 
+  mol.gro # GROMACS input geometry file with updated atomic type match with the topology. If your input geometry is in .gro format, the output will keep the same box, otherwise, the output gro has no box, be sure to use the 'gmx editconf' command to add the box before you use it for simulation. 
 
