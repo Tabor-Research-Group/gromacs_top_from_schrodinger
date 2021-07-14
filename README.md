@@ -12,7 +12,7 @@ $ pip install --update --user ase
 
 ### Execution of Code
 
-1. Place the genTOP.py and run.sh in your directory that contains the geometry of your monomer that you are interested. The format of the geometry can be either .xyz/.gro/.pdb that supported by the ASE.
+1. Place the gromacs_top_from_schrodinger.py and run.sh in your directory that contains the geometry of your monomer that you are interested. The format of the geometry can be either .xyz/.gro/.pdb that supported by the ASE.
 
 2. Change the filename in the run.sh file to match with your monomer, do not include the extension (.xyz/.pdb/.gro etc.)
 
