@@ -1,5 +1,3 @@
-### genTOP
-
 ### Currently works on Terra
 
 ### Keep in mind that the FF included here are extracted from OPLS_2005. To obtain accurate simulation results, it is alway recommanded to parameterized the distinct dihedrals.  
