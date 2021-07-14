@@ -1,0 +1,7 @@
+1 molecule converted
+WARNING mmlewis warning: Wrong Lewis structure in structure input file
+mmlewis warning: with title: DBP1.xyz
+mmlewis warning: Problems were identified with the following atoms:
+mmlewis warning:  18 22 
+mmlewis warning: Now attempting to fix the lewis structure.
+WARNING mmlewis warning: A valid lewis structure was successfully generated.
