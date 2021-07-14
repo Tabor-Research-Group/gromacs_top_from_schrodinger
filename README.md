@@ -15,6 +15,7 @@ $ pip install --update --user ase
 MOL_GEOM=YOUR_FILE_NAME
 
 4. Submit the job script to Terra:
+
 $ sbatch run.sh
 
 5. The code will generate several output files:
