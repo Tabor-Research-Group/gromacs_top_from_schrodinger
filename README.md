@@ -2,6 +2,8 @@
 
 ### Currently works on Terra
 
+### Keep in mind that the FF included here are extracted from general molecules. To obtain accurate simulation results, it is alway recommanded to parameterized the distinct dihedrals.  
+
 This code is used to convert Schrodinger force field output to GROMACS format and also generate other input files used to initiate GROMACS simulation.
 
 0. You will need to have the Atomic Simulation Environment (ASE) (https://wiki.fysik.dtu.dk/ase/install.html) installed in your python environment. You can install it with:
@@ -28,4 +30,3 @@ $ sbatch run.sh
 
   mol.gro # GROMACS input geometry file with updated atomic type match with the topology. The file has no initial box, be sure to use the 'gmx editconf' command to add the box before you use it for simulation. 
 
-### Keep in mind that the FF included here are extracted from general molecules. To obtain accurate simulation results, it is alway recommanded to parameterized the distinct dihedrals.  
