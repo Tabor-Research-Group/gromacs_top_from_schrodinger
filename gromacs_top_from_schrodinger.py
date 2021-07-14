@@ -13,7 +13,7 @@ def printGro(infile, outfile, atomSymbol):
     print('Gro File', file=gout)
     print(natoms, file=gout)
     for i in range(len(coord)):
-        print("{0:>5d}{1:<5s}{2:>5s}{3:5d}{4:8.3f}{5:8.3f}{6:8.3f}".format              (1, 'MOL', atomSymbol[i], i+1, coord[i][0]/10, coord[i][1]/10, coord[i][2]/10), file=gout)
+        print("{0:>5d}{1:<5s}{2:>5s}{3:5d}{4:8.3f}{5:8.3f}{6:8.3f}".format(1, 'MOL', atomSymbol[i], i+1, coord[i][0]/10, coord[i][1]/10, coord[i][2]/10), file=gout)
 
     gout.close()
 
@@ -28,7 +28,7 @@ def printGro2(infile, outfile, atomSymbol, cell):
     print('Gro File', file=gout)
     print(natoms, file=gout)
     for i in range(len(coord)):
-        print("{0:>5d}{1:<5s}{2:>5s}{3:5d}{4:8.3f}{5:8.3f}{6:8.3f}".format              (1, 'MOL', atomSymbol[i], i+1, coord[i][0]/10, coord[i][1]/10, coord[i][2]/10), file=gout)
+        print("{0:>5d}{1:<5s}{2:>5s}{3:5d}{4:8.3f}{5:8.3f}{6:8.3f}".format(1, 'MOL', atomSymbol[i], i+1, coord[i][0]/10, coord[i][1]/10, coord[i][2]/10), file=gout)
     print("{0:>10.5f}{1:>10.5f}{2:>10.5f}".format(cell[0][0]/10, cell[1][1]/10, cell[2][2]/10), file=gout)
     gout.close()
 
@@ -160,7 +160,7 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print('[ atoms ]', file=fout)
     print(';   nr     type  resnr residue    atom     cgnr    charge     mass', file=fout)
     for i in range(natoms):
-        print('{0:>6d}{1:>10s}{2:>6d}{3:>7s}{4:>10s}{5:>9d}{6:>10.3f}{7:>10.3f}'.format              (i+1, 'opls_'+atomType[i], 1, 'MOL', atomSymbol[i], i+1, float(charges[i]), masses[i]), file=fout)
+        print('{0:>6d}{1:>10s}{2:>6d}{3:>7s}{4:>10s}{5:>9d}{6:>10.3f}{7:>10.3f}'.format(i+1, 'opls_'+atomType[i], 1, 'MOL', atomSymbol[i], i+1, float(charges[i]), masses[i]), file=fout)
 
 
     # Print Bonds
@@ -168,14 +168,16 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print('[ bonds ]', file=fout)
     print(';   ai    aj  funct        c0        c1', file=fout)
     for i in range(len(bonds)):
-        print('{0:>6d}{1:>6d}{2:>7d}{3:>10.5f}{4:>10.1f}'.format              (atom_dict[bonds[i][0]], atom_dict[bonds[i][1]], 1, float(bonds[i][3])/10, float(bonds[i][2])*4.184*200), file=fout)
+        print('{0:>6d}{1:>6d}{2:>7d}{3:>10.5f}{4:>10.1f}'.format\
+              (atom_dict[bonds[i][0]], atom_dict[bonds[i][1]], 1, float(bonds[i][3])/10, float(bonds[i][2])*4.184*200), file=fout)
 
     # Print Angles
     print('', file=fout)
     print('[ angles ]', file=fout)
     print(';   ai    aj    ak   funct    theta0       k0', file=fout)
     for i in range(len(angles)):
-        print('{0:>6d}{1:>6d}{2:>6d}{3:>8d}{4:>10.3f}{5:>10.1f}'.format              (atom_dict[angles[i][0]], atom_dict[angles[i][1]], atom_dict[angles[i][2]], 1, float(angles[i][4])*8.368, float(angles[i][3])*4.184), file=fout)
+        print('{0:>6d}{1:>6d}{2:>6d}{3:>8d}{4:>10.3f}{5:>10.1f}'.format\
+              (atom_dict[angles[i][0]], atom_dict[angles[i][1]], atom_dict[angles[i][2]], 1, float(angles[i][4])*8.368, float(angles[i][3])*4.184), file=fout)
 
 
     # Print Dihedrals
@@ -192,7 +194,8 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print(";improper dihedrals", file=fout)
     print(";    ai   aj    ak    al funct    phi(deg)  k(kJ/mol)   multi", file=fout)
     for i in range(len(im_torsions)):
-        print("{0:>6d}{1:>6d}{2:>6d}{3:>6d}{4:>6d}{5:>12.1f}{6:>11.5f}{7:>8d}".format              (atom_dict[im_torsions[i][0]], atom_dict[im_torsions[i][1]], atom_dict[im_torsions[i][2]], atom_dict[im_torsions[i][3]],               1, 180, float(im_torsions[i][4])*8.368, 2), file=fout)
+        print("{0:>6d}{1:>6d}{2:>6d}{3:>6d}{4:>6d}{5:>12.1f}{6:>11.5f}{7:>8d}".format\
+              (atom_dict[im_torsions[i][0]], atom_dict[im_torsions[i][1]], atom_dict[im_torsions[i][2]], atom_dict[im_torsions[i][3]],               1, 180, float(im_torsions[i][4])*8.368, 2), file=fout)
 
 
     fout.close()
@@ -205,7 +208,8 @@ def printNB(nb_dict):
     print('; full atom descriptions are available in ffoplsaa.atp', file=fout)
     print('; name  bond_type       mass    charge ptype   sigma epsilon', file=fout)
     for i in nb_dict:
-        print("{0:>8s}{1:>6s}{2:>6d}{3:>10.5f}{4:>10.3f}{5:>6s}{6:>8.4f}{7:>8.4f}".format              ('opls_'+i, nb_dict[i][0], nb_dict[i][1], nb_dict[i][2], 0.000, 'A', float(nb_dict[i][3])/10, float(nb_dict[i][-1])*4.184), file=fout)
+        print("{0:>8s}{1:>6s}{2:>6d}{3:>10.5f}{4:>10.3f}{5:>6s}{6:>8.4f}{7:>8.4f}".format\
+              ('opls_'+i, nb_dict[i][0], nb_dict[i][1], nb_dict[i][2], 0.000, 'A', float(nb_dict[i][3])/10, float(nb_dict[i][-1])*4.184), file=fout)
 
 
     fout.close()
