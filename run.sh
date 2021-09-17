@@ -7,7 +7,7 @@
 #SBATCH --job-name=makeTOP       #Set the job name 
 #SBATCH --time=10:00 #Set the wall clock limit 
 #SBATCH --ntasks=1                   #Request tasks
-#SBATCH --mem=10GM                  #Request Memory in MB per node
+#SBATCH --mem=10GB                  #Request Memory in MB per node
 #SBATCH --output=job.%j      #Send stdout/err 
 
 export PATH=/sw/group/lms/sw/schrodinger/2020-1/utilities/:$PATH
