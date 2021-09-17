@@ -21,7 +21,7 @@ obabel $MOL_GEOM.xyz -O $MOL_GEOM.sdf
 ffld_server -isdf $MOL_GEOM.sdf -print_parameters -out_file $MOL_GEOM.log -version 14
 
 #Convert schrodinger FF file to GROMACS format
-python genTOP.py -f $MOL_GEOM.xyz -l $MOL_GEOM.log -o mol.gro -t $MOL_GEOM.top
+python gromacs_top_from_schrodinger.py -f $MOL_GEOM.xyz -l $MOL_GEOM.log -o mol.gro -t $MOL_GEOM.top
 
 #Clean up
 rm $MOL_GEOM.log $MOL_GEOM.sdf
