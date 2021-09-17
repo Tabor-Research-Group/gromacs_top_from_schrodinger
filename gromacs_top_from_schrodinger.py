@@ -131,11 +131,11 @@ def dihedral_conv(torsions):
         v2 = float(i[5])
         v3 = float(i[6])
         v4 = float(i[7])
-        c0 = (v2 + 0.5*(v1+v3))*8.368
-        c1 = 0.5*(-1*v1 + 3*v3)*8.368
-        c2 = (-1*v2 + 4*v4)*8.368
-        c3 = -2*v3*8.368
-        c4 = -4*v4*8.368
+        c0 = (v2 + 0.5*(v1+v3))*4.184
+        c1 = 0.5*(-1*v1 + 3*v3)*4.184
+        c2 = (-1*v2 + 4*v4)*4.184
+        c3 = -2*v3*4.184
+        c4 = -4*v4*4.184
         c5 = 0
 
         new_tor = i[:4] + [c0, c1, c2, c3, c4, c5]
@@ -177,7 +177,7 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print(';   ai    aj    ak   funct    theta0       k0', file=fout)
     for i in range(len(angles)):
         print('{0:>6d}{1:>6d}{2:>6d}{3:>8d}{4:>10.3f}{5:>10.1f}'.format\
-              (atom_dict[angles[i][0]], atom_dict[angles[i][1]], atom_dict[angles[i][2]], 1, float(angles[i][4])*8.368, float(angles[i][3])*4.184), file=fout)
+              (atom_dict[angles[i][0]], atom_dict[angles[i][1]], atom_dict[angles[i][2]], 1, float(angles[i][4]), float(angles[i][3])*4.184*2), file=fout)
 
 
     # Print Dihedrals
@@ -195,7 +195,7 @@ def printTOP(outfile, natoms, atomType, atomSymbol, charges, masses, bonds, angl
     print(";    ai   aj    ak    al funct    phi(deg)  k(kJ/mol)   multi", file=fout)
     for i in range(len(im_torsions)):
         print("{0:>6d}{1:>6d}{2:>6d}{3:>6d}{4:>6d}{5:>12.1f}{6:>11.5f}{7:>8d}".format\
-              (atom_dict[im_torsions[i][0]], atom_dict[im_torsions[i][1]], atom_dict[im_torsions[i][2]], atom_dict[im_torsions[i][3]],               1, 180, float(im_torsions[i][4])*8.368, 2), file=fout)
+              (atom_dict[im_torsions[i][0]], atom_dict[im_torsions[i][1]], atom_dict[im_torsions[i][2]], atom_dict[im_torsions[i][3]],               1, 180, float(im_torsions[i][4])*4.184, 2), file=fout)
 
 
     fout.close()
