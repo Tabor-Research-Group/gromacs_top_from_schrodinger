@@ -1,6 +1,6 @@
 ### Code Overview
 
-This code is used to convert Schrodinger force field output to GROMACS format and also generate other input files used to initiate GROMACS simulation.
+This code is used to convert Schrodinger force field output to GROMACS format and generate other input files used to initiate MD simulation with GROMACS.
 
 ### Required Resources
 
